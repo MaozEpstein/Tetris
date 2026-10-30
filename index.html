@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0f1020">
+<meta name="theme-color" content="#0b0c1a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Tetris</title>
@@ -18,7 +18,11 @@
     <div class="box"><span class="label">HOLD</span><canvas id="hold" width="56" height="44"></canvas></div>
     <div class="stats">
       <div class="score" id="score">0</div>
-      <div class="sub"><span>LV <b id="level">1</b></span><span>LINES <b id="lines">0</b></span><span>BEST <b id="best">0</b></span></div>
+      <div class="sub">
+        <span><i id="l1">LV</i> <b id="v1">1</b></span>
+        <span><i id="l2">LINES</i> <b id="v2">0</b></span>
+        <span><i id="l3">BEST</i> <b id="v3">0</b></span>
+      </div>
     </div>
     <div class="box"><span class="label">NEXT</span><canvas id="next" width="140" height="44"></canvas></div>
   </header>
@@ -29,6 +33,7 @@
       <h1 id="ovTitle">PAUSED</h1>
       <p id="ovText"></p>
       <button id="ovBtn">RESUME</button>
+      <button id="ovBtn3" class="ghost">FINISH</button>
       <button id="ovBtn2" class="ghost">MENU</button>
     </div>
   </main>
@@ -46,17 +51,47 @@
     </div>
     <button id="playClassic" class="card primary">
       <span class="card-title">CLASSIC</span>
-      <span class="card-sub">Endless · the original game</span>
-      <span class="card-best">BEST <b id="menuBest">0</b></span>
+      <span class="card-sub">Endless · speed keeps rising</span>
+      <span class="card-tag" id="diffTag">NORMAL</span>
+      <span class="card-best">BEST <b id="bestClassic">0</b></span>
     </button>
-    <button id="openSettings" class="card">
-      <span class="card-title sm">SETTINGS</span>
-      <span class="card-sub">Controls, feel &amp; difficulty</span>
-    </button>
-    <div class="soon">
-      <div class="card locked"><span class="card-title sm">SPRINT</span><span class="card-sub">Coming soon</span></div>
-      <div class="card locked"><span class="card-title sm">ZEN</span><span class="card-sub">Coming soon</span></div>
+    <div class="grid2">
+      <button id="playSprint" class="card">
+        <span class="card-title sm">SPRINT</span>
+        <span class="card-sub">Clear 40 lines, fast</span>
+        <span class="card-meta">BEST <b id="bestSprint">—</b></span>
+      </button>
+      <button id="playZen" class="card">
+        <span class="card-title sm">ZEN</span>
+        <span class="card-sub">No game over, just flow</span>
+        <span class="card-meta">BEST <b id="bestZen">0</b></span>
+      </button>
     </div>
+    <div class="grid2">
+      <button id="openRecords" class="card">
+        <span class="card-title sm">RECORDS</span>
+        <span class="card-sub">Your best runs</span>
+      </button>
+      <button id="openSettings" class="card">
+        <span class="card-title sm">SETTINGS</span>
+        <span class="card-sub">Difficulty, theme &amp; feel</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="records" class="screen hidden">
+  <div class="menu-inner">
+    <div class="set-head">
+      <button id="recBack" class="back" aria-label="Back">‹</button>
+      <h2>RECORDS</h2>
+    </div>
+    <div class="seg wide" id="recTabs">
+      <button data-m="classic">Classic</button><button data-m="sprint">Sprint</button><button data-m="zen">Zen</button>
+    </div>
+    <div class="chips" id="recDiffs"></div>
+    <div class="rec-list" id="recList"></div>
+    <div class="rec-stats" id="recStats"></div>
   </div>
 </section>
 
@@ -67,13 +102,19 @@
       <h2>SETTINGS</h2>
     </div>
     <div class="set-list">
+      <div class="block">
+        <div class="block-title"><b>Classic difficulty</b><small id="diffDesc"></small></div>
+        <div class="seg wide" id="diffSeg"></div>
+      </div>
+      <div class="block">
+        <div class="block-title"><b>Theme</b></div>
+        <div class="themes" id="themeGrid"></div>
+      </div>
       <div class="row"><div><b>Ghost piece</b><small>Show where the piece will land</small></div><button class="switch" data-key="ghost" role="switch"></button></div>
       <div class="row"><div><b>Vibration</b><small>Haptic feedback on lock &amp; clear</small></div><button class="switch" data-key="haptics" role="switch"></button></div>
       <div class="row"><div><b>Long-press to slam</b><small>Hold still on the board to drop instantly</small></div><button class="switch" data-key="longPress" role="switch"></button></div>
       <div class="row"><div><b>Swipe sensitivity</b><small>How far to swipe per column</small></div>
         <div class="seg" id="sensSeg"><button data-v="0">Low</button><button data-v="1">Mid</button><button data-v="2">High</button></div></div>
-      <div class="row"><div><b>Starting level</b><small>Higher is faster</small></div>
-        <div class="stepper"><button id="lvDown">−</button><span id="lvVal">1</span><button id="lvUp">+</button></div></div>
     </div>
   </div>
 </section>
