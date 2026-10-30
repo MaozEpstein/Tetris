@@ -25,18 +25,58 @@
 
   <main id="stage">
     <canvas id="board"></canvas>
-    <div id="overlay" class="overlay">
-      <h1 id="ovTitle">TETRIS</h1>
-      <p id="ovText">Swipe to move · Tap to rotate</p>
-      <button id="ovBtn">PLAY</button>
+    <div id="overlay" class="overlay hidden">
+      <h1 id="ovTitle">PAUSED</h1>
+      <p id="ovText"></p>
+      <button id="ovBtn">RESUME</button>
+      <button id="ovBtn2" class="ghost">MENU</button>
     </div>
   </main>
 
   <footer class="foot">
     <button id="pauseBtn" aria-label="Pause">❚❚</button>
-    <span class="hint">← → move · tap rotate · ↓ drop · flick ↓ slam · ↑ hold</span>
+    <span class="hint">swipe move · tap rotate · long-press / flick ↓ slam · swipe ↑ hold</span>
   </footer>
 </div>
+
+<section id="menu" class="screen">
+  <div class="menu-inner">
+    <div class="logo" aria-label="Tetris">
+      <span style="--c:#f2677a">T</span><span style="--c:#f59b4b">E</span><span style="--c:#f7d154">T</span><span style="--c:#6bd67f">R</span><span style="--c:#4dd8e8">I</span><span style="--c:#b57bee">S</span>
+    </div>
+    <button id="playClassic" class="card primary">
+      <span class="card-title">CLASSIC</span>
+      <span class="card-sub">Endless · the original game</span>
+      <span class="card-best">BEST <b id="menuBest">0</b></span>
+    </button>
+    <button id="openSettings" class="card">
+      <span class="card-title sm">SETTINGS</span>
+      <span class="card-sub">Controls, feel &amp; difficulty</span>
+    </button>
+    <div class="soon">
+      <div class="card locked"><span class="card-title sm">SPRINT</span><span class="card-sub">Coming soon</span></div>
+      <div class="card locked"><span class="card-title sm">ZEN</span><span class="card-sub">Coming soon</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="settings" class="screen hidden">
+  <div class="menu-inner">
+    <div class="set-head">
+      <button id="setBack" class="back" aria-label="Back">‹</button>
+      <h2>SETTINGS</h2>
+    </div>
+    <div class="set-list">
+      <div class="row"><div><b>Ghost piece</b><small>Show where the piece will land</small></div><button class="switch" data-key="ghost" role="switch"></button></div>
+      <div class="row"><div><b>Vibration</b><small>Haptic feedback on lock &amp; clear</small></div><button class="switch" data-key="haptics" role="switch"></button></div>
+      <div class="row"><div><b>Long-press to slam</b><small>Hold still on the board to drop instantly</small></div><button class="switch" data-key="longPress" role="switch"></button></div>
+      <div class="row"><div><b>Swipe sensitivity</b><small>How far to swipe per column</small></div>
+        <div class="seg" id="sensSeg"><button data-v="0">Low</button><button data-v="1">Mid</button><button data-v="2">High</button></div></div>
+      <div class="row"><div><b>Starting level</b><small>Higher is faster</small></div>
+        <div class="stepper"><button id="lvDown">−</button><span id="lvVal">1</span><button id="lvUp">+</button></div></div>
+    </div>
+  </div>
+</section>
 <script src="game.js"></script>
 </body>
 </html>
